@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+        <h3>Featured Products</h3>
+        <ul>
+        <div class = 'container'>
+            <div class = 'row'>
+            {% for obj in Object_list %}
+                <div class = 'col'>
+                {% include "products/snippets/card.html" with instance=obj %}
+            {% comment %} <li><a href = '{{ instance.get_absolute_url }}'>{{ instance.title }}</a>________Price: ₹{{ instance.price }}</li> {% endcomment %}
+                <hr/></div>
+            {% endfor %}
+            </div>
+        </div>
+
+        </ul>
+    {% else %}
+        <h2>Uh-oh.. You cannot view 'Featured content' because you are logged out.</h2>
+        <a class="btn btn-warning" href = "{% url 'login' %}" >Login now</a>
+    {% endif %}
+    
+
+{% endblock content %}

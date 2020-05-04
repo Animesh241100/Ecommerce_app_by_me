@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block ForAll %}
+    <li><a class = 'P4' href = '/'>Home</a></li>
+{% endblock ForAll %}
+
+{% block content %}
+    <h1>{{ obj.title }}</h1> <br/>
+    {{ obj.timestamp|timesince }} ago<br/>
+    <!-- {{ obj.image.url }}  .url is added to find the actual path of the image attribute of the object 'obj'. so now we proceed with <img src> -->
+    
+    <img src = '{{ obj.image.url }}' class='img-fluid' />
+    <div class = container>
+        <h2><u>Description:</u></h2>
+        <div class = 'row'>
+            <div class = 'col'>
+            <p>{{ obj.description|linebreaks }}</p>
+            <h2>Price:  ₹{{ obj.price }}</h2>
+            {% include "products/snippets/update_cart.html" with product=obj cart=cart_obj %}
+            </div>
+        </div>
+    </div>
+
+
+    {% comment %} {% if request.user.is_authenticated %}
+        {% if obj.in_cart %}
+        <form action = '.' method = 'POST'>{% csrf_token %}
+            <input class = 
+            <a class="btn btn-danger" href='' >Add to cart</a><br/>
+        {% else %}
+        {% endif %}
+    
+    {% else %}
+    {% endif %}
+    {% include "carts/add_to_cart.html" %} {% endcomment %}
+    
+{% endblock content %}
+{% block footer %}
+    <a class="btn btn-primary" href='../../' >Back</a><br/>
+{% endblock footer %}
+
